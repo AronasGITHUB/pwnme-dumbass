@@ -1,0 +1,107 @@
+#!/bin/bash
+
+clear
+echo -e "\e[94m"
+echo ""
+echo ""
+echo "                                            .___           ___.                        ._."
+echo "________  _  ______   _____   ____        __| _/_ __  _____\_ |__ _____    ______ _____| |"
+echo "\____ \ \/ \/ /    \ /     \_/ __ \      / __ |  |  \/     \| __ \\__  \  /  ___//  ___/ |"
+echo "|  |_> >     /   |  \  Y Y  \  ___/     / /_/ |  |  /  Y Y  \ \_\ \/ __ \_\___ \ \___ \ \|"
+echo "|   __/ \/\_/|___|  /__|_|  /\___  > /\ \____ |____/|__|_|  /___  (____  /____  >____  >__"
+echo "|__|              \/      \/     \/  \/      \/           \/    \/     \/     \/     \/ \/"
+echo ""
+echo "v1 - User pwner"
+echo ""
+echo "-------------------------------------------------------------------------------------------------------------------------"
+echo ""
+echo "[1] - Pwn a user"
+echo "[2] - Switch local users"
+echo "[3] - Send message"
+echo "[4] - Grab information"
+echo "[q] - Quit"
+echo "This script does NOT manage local accounts."
+echo "This script is for ethical and legal purposes only."
+while true; do
+	read -p "> " cmd
+
+	case $cmd in
+		1)
+			echo "-- Method --"
+			echo "[1] - Remmina"
+			echo "[2] - SSH"
+			read -p "> " method_1
+
+			case $method_1 in
+				1)
+					remmina
+					;;
+				2)
+					read -p "Enter the username: " ssh_user
+					read -p "Enter the hostname, or IP Address: " ssh_server
+					ssh ${ssh_user}@${ssh_server}
+					;;
+				*)
+					clear
+					./pwnme
+					;;
+			esac
+			;;
+		2)
+			read -p "Enter the username: " su_username
+			su ${su_username}
+			;;
+		3)
+			echo "-- Method --"
+			echo "[1] - Global, send message to all logged in users"
+			echo "[2] - Local, send message to specific user"
+			read -p "> " method_2
+
+			case $method_2 in
+				1)
+					read -p "Enter message: " wall_message
+					wall "${wall_message}"
+					;;
+				2)
+					read -p "Who do you want to message?: " write_message
+					echo "Sending message. Write down your message, then enter CTRL-D to send."
+					write ${write_message}
+					;;
+				*)
+					clear
+					./pwnme
+					;;
+			esac
+			;;
+		4)
+			echo "--- Logged in user's info ---"
+			who
+			echo ""
+			echo "--- Activity ---"
+			w
+			echo ""
+			echo "--- Groups, and IDs ---"
+			id ${USER}
+			echo ""
+			echo "--- Basic info ---"
+			echo "User"
+			whoami
+			echo ""
+			echo "Hostname"
+			hostname
+			echo ""
+			echo "IP Address"
+			hostname -I
+			;;
+		q)
+			clear
+			exit 0
+			;;
+		*)
+			clear
+			./pwnme
+			;;
+	esac
+done
+
+
